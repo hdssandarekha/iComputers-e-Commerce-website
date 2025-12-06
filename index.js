@@ -2,7 +2,6 @@ import express from 'express'
 import mongoose from "mongoose"
 import userRouter from './router/userRouter.js'
 import productRouter from './router/productRouter.js'
-import jwt from "jsonwebtoken"
 import authorizeUser from './lib/jwtMiddleware.js'
 
 
@@ -21,7 +20,7 @@ mongoose.connect(mongoURI).then(
 
 //to create express app
 const app = express()
-app.use(express.json()) // to arrange request 
+app.use(express.json()) // to arrange request (middleware)
 
 app.use(authorizeUser) // to authorize user for protected routes
 

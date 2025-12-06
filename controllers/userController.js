@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 
+//crud operation - create user
 export function createUser(req , res){
 
     const hashedPassword = bcrypt.hashSync(req.body.password ,10)
@@ -15,6 +16,7 @@ export function createUser(req , res){
             password : hashedPassword
         }
     )
+
 
     user.save().then(
         ()=> {
@@ -36,16 +38,48 @@ export function createUser(req , res){
     )
 } 
 
+//function with async await
+//you can use either of the two functions(createUser or createUserAsync) for creating user
+export async function createUserAsync(req , res){
+
+const hashedPassword = bcrypt.hashSync(req.body.password ,10);
+
+    const user = new User(
+        {
+            email : req.body.email,
+            firstName : req.body.firstName,
+            lastName : req.body.firstName,
+            password : hashedPassword
+        }
+    )
+
+    try{
+await user.save();
+        res.json(
+                {
+                    message : "user created successfully"
+                }
+        )
+    }
+    catch(error){
+        res.json(
+                {
+                    message : "user creation failed"
+                }
+        )   
+    }
+}
+
+//crud operation(Read) - login user
 export function loginUser(req , res){
-   User.findOne(
+User.findOne(
     {
         email : req.body.email
-    }
-   ).then(
+    } ).then(
     (user)=>{
         if(user == null)
         {
-            res.json(
+        return res.status(404).json(
                 {
                     message : "user with given email not found"
                 }
@@ -67,6 +101,7 @@ export function loginUser(req , res){
                     } ,
                     "i-computers-54!") 
                 
+                
                     
                 res.json(
                     {
@@ -76,7 +111,7 @@ export function loginUser(req , res){
                 )
             }
             else{
-                res.status(401).json(
+            res.status(401).json(
                     {
                         message : "invalid Password"
                     }
@@ -84,7 +119,7 @@ export function loginUser(req , res){
             }
         }
     }
-   ).catch(
+).catch(
     () =>(
         res.status(500).json(
         {
@@ -93,4 +128,17 @@ export function loginUser(req , res){
     )
     )
 ) 
+}
+
+//utility function to check if logged in user is admin 
+export function isAdmin(req){
+    if(req.user == null){
+        return false;
+    }
+    if(req.user.role == "admin"){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
