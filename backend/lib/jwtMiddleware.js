@@ -34,7 +34,7 @@ export default function authorizeUser(req,res,next)
         }
         // if no token
         else{
-            next()
+            next() //can go if even there is no token
         }
         
        // next() // to pass it to next person
