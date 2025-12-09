@@ -8,7 +8,7 @@ const productRouter = express.Router();
 productRouter.post("/", createProduct);
 productRouter.get("/",getProducts);
 
-//just a example for hierarchical routing..this route is not assentially needed
+//just a example for hierarchical routing..this route is not  needed
 productRouter.get("/trending",()=> {
     res.status(200).json({message : "Trending products endpoint"})
 })
