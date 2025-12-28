@@ -4,9 +4,10 @@ import LoginPage from "../pages/login"
 import Test from "./components/test"
 import { Routes, Route } from "react-router-dom"  
 
+// Main application component
 function App() {
   return (
-  <div className="w-full h-screen bg-red-200">
+  <div className="w-full h-screen bg-primary text-secondary">
     <Routes>
       <Route path ="/" element={<HomePage/>}/>
       <Route path ="/admin/*" element={<AdminPage/>}/>
