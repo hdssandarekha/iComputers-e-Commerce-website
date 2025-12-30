@@ -1,11 +1,13 @@
 import { use, useState } from "react"
 import axios from "axios"   
 import toast from "react-hot-toast"
+import { useNavigate } from "react-router-dom"
 
 
 export default function LoginPage() {
     const [email,setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate()
 
     /*function login(){
         console.log("email:", email)
@@ -38,6 +40,14 @@ export default function LoginPage() {
                 }
             )
             console.log(response)
+            if(response.data.role == "admin")
+            {
+                //we should redirect to admin dashboard "/admin"
+                //window.location.href = "/admin"
+                navigate("/admin")  
+            } else{
+                //redirect to user homepage "/"
+            }
             toast.success("Login successful") // show success message using toast
         }catch(error){
             console.log("Login failed:", error)
@@ -59,7 +69,7 @@ export default function LoginPage() {
                 placeholder="Email" 
                 onChange={
                     (e)=>{
-                        setEmail(e.target.value)
+                        setEmail(e.target.value) //updating email state variable  
                     }
                 } 
                 className="w-[80%] h-[35px] mt-20 mx-auto block rounded-md px-4 text-lg outline-none border border-secondary"/>
@@ -68,7 +78,7 @@ export default function LoginPage() {
                 placeholder="Password" 
                 onChange={
                     (e)=>{
-                        setPassword(e.target.value)
+                        setPassword(e.target.value) //updating password state variable
                     }
                 }
                 className="w-[80%] h-[35px] mt-10 mx-auto block rounded-md px-4 text-lg border border-secondary outline-none  "/>

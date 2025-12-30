@@ -110,6 +110,7 @@ User.findOne(
                     {
                         message : " Login Successful",
                         token : token,
+                        role : user.role
                     }
                 )
             }

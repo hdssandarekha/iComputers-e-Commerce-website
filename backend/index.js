@@ -29,8 +29,8 @@ app.use(express.json()) // to arrange request (middleware)
 
 app.use(authorizeUser) // to authorize user for protected routes
 
-app.use("/users", userRouter) // localhost:3000/users
-app.use("/products", productRouter) // localhost:3000/products
+app.use("/api/users", userRouter) // localhost:3000/users
+app.use("/api/products", productRouter) // localhost:3000/products
 
 //to start server
 app.listen(3000,
