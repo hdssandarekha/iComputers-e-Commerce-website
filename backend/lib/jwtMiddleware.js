@@ -1,4 +1,7 @@
 import jwt from "jsonwebtoken"
+import dotenv from 'dotenv'
+
+dotenv.config() //loading env variables to this page
 
 //middleware to authorize user using JWT token
 export default function authorizeUser(req,res,next) 
@@ -11,7 +14,7 @@ export default function authorizeUser(req,res,next)
     
 
             //to verify token
-            jwt.verify(token ,"i-computers-54!" ,
+            jwt.verify(token ,process.env.JWT_SECRET,  
 
                 //decoded token info
                 (error , decoded)=>{

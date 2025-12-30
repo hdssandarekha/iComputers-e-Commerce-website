@@ -3,10 +3,14 @@ import mongoose from "mongoose"
 import userRouter from './router/userRouter.js'
 import productRouter from './router/productRouter.js'
 import authorizeUser from './lib/jwtMiddleware.js'
+import cors from 'cors'
+import dotenv from 'dotenv'
+
+dotenv.config() //loading env variables to this page
 
 
 //to connect to mongoDB
-const mongoURI = "mongodb+srv://admin:1234@cluster0.ot8etbv.mongodb.net/?appName=Cluster0"
+const mongoURI = process.env.MONGO_URI
 
 mongoose.connect(mongoURI).then(
     () => {
@@ -20,6 +24,7 @@ mongoose.connect(mongoURI).then(
 
 //to create express app
 const app = express()
+app.use(cors()) // to allow requests from frontend
 app.use(express.json()) // to arrange request (middleware)
 
 app.use(authorizeUser) // to authorize user for protected routes

@@ -1,6 +1,9 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv'
+
+dotenv.config() //loading env variables to this page
 
 
 //crud operation - create user
@@ -99,7 +102,7 @@ User.findOne(
                         image : user.image,
                         isEmailVerified : user.isEmailVerified
                     } ,
-                    "i-computers-54!") 
+                    process.env.JWT_SECRET) 
                 
                 
                     
